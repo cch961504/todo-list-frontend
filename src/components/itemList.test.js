@@ -15,4 +15,22 @@ describe("ItemList component", () => {
 
     expect(screen.getByText("New Item")).toBeInTheDocument();
   });
+
+  test("populate list", async () => {
+    localStorage.setItem(
+      "items",
+      JSON.stringify([
+        {
+          id: 1,
+          content: "Existing Item 1",
+          checked: 0,
+          owner: "owner",
+          modified: 0,
+        },
+      ]),
+    );
+    render(<ItemList />);
+
+    expect(screen.getByText("Existing Item 1")).toBeInTheDocument();
+  });
 });
