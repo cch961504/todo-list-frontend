@@ -17,9 +17,26 @@ const ItemList = () => {
       modified: 0,
     },
   ]);
+  const [inputValue, setInputValue] = useState("");
+
+  // Add a new item
+  const addItem = () => {
+    if (inputValue.trim() !== "") {
+      // itemService.addItem(inputValue)
+    }
+  };
+
+  // Handle input field changes
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
   return (
     <div>
+      <div>
+        <input type="text" value={inputValue} onChange={handleInputChange} />
+        <button onClick={addItem}>Add</button>
+      </div>
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {items.map((item) => (
           <li key={item.id}>
