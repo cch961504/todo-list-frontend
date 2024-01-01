@@ -36,6 +36,15 @@ const ItemList = () => {
     setInputValue(event.target.value);
   };
 
+  // Toggle checkbox
+  const toggleCheckbox = (id) => {
+    setItems(
+      items.map((item) =>
+        item.id === id ? { ...item, checked: item.checked ? 0 : 1 } : item,
+      ),
+    );
+  };
+
   return (
     <div>
       <div>
@@ -48,6 +57,7 @@ const ItemList = () => {
             <input
               type="checkbox"
               checked={item.checked > 0}
+              onChange={() => toggleCheckbox(item.id)}
               id={`checked-${item.id}`}
             />
             <label htmlFor={`checked-${item.id}`}>{item.content}</label>
