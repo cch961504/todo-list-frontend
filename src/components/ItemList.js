@@ -1,28 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ItemList = () => {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      content: "Existing Item 1",
-      checked: 0,
-      owner: "owner",
-      modified: 0,
-    },
-    {
-      id: 2,
-      content: "Existing Item 2",
-      checked: 0,
-      owner: "owner",
-      modified: 0,
-    },
-  ]);
+  // Initialize state from local storage if available
+  const [items, setItems] = useState(() => {
+    const storedItems = localStorage.getItem("items");
+    return storedItems ? JSON.parse(storedItems) : [];
+  });
+
+  // Update local storage when items change
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
+
   const [inputValue, setInputValue] = useState("");
 
   // Add a new item
   const addItem = () => {
     if (inputValue.trim() !== "") {
-      // itemService.addItem(inputValue)
+      const itemId = items.length + 1;
+      setItems([
+        {
+          id: itemId,
+          content: inputValue,
+          checked: 0,
+          owner: "owner",
+          modified: Date.now(),
+        },
+        ...items,
+      ]);
     }
   };
 
